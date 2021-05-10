@@ -21,4 +21,8 @@ class Xct < Formula
     # All xct-* bin (but not the dSYMs and co)
     bin.install Dir["#{prefix}/release/xct-*"] - Dir["#{prefix}/release/xct-*.*"]
   end
+
+  test do
+    system "xct", "--help"
+  end
 end
