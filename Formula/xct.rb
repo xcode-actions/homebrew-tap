@@ -1,8 +1,7 @@
 class Xct < Formula
   desc "Manage, build, sign and deploy your Xcode projects"
   homepage "https://xcode-actions.com"
-  url "https://github.com/xcode-actions/XcodeTools.git", using: :git, tag: "0.3.0", revision: "bf0e013c51c1030e51ce1591614b8aff3d794894"
-  revision 1
+  url "https://github.com/xcode-actions/XcodeTools.git", using: :git, tag: "0.3.1", revision: "a43c081dc8412c28424b154c853e5f8a9eb0bb49"
   head "https://github.com/xcode-actions/XcodeTools.git", using: :git, branch: "develop"
 
   depends_on xcode: "12.5"
@@ -12,8 +11,7 @@ class Xct < Formula
     # directly in destination directory because Swift hard-codes the bundle
     # location at compile time.
     system "./Scripts/build-sans-sandbox.swift", "--disable-sandbox", "--force-resolved-versions",
-           "--build-path", prefix, "--configuration", "release",
-           "-Xswiftc", "-Onone" # This is sadly needed for now
+           "--build-path", prefix, "--configuration", "release"
 
     # This contains some reference to Homebrew`'s shim and must be removed
     rm "#{prefix}/release.yaml"
