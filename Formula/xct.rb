@@ -24,10 +24,26 @@ class Xct < Formula
     # This contains some reference to Homebrew`'s shim and must be removed
     rm "#{prefix}/release.yaml"
 
-    bin.install "#{prefix}/release/xct"
-    bin.install "#{prefix}/release/hagvtool" # Obsolete
-    # All xct-* bin (but not the dSYMs and co)
-    bin.install Dir["#{prefix}/release/xct-*"] - Dir["#{prefix}/release/xct-*.*"]
+    bins = ["#{prefix}/release/xct"] +
+           # Obsolete
+           ["#{prefix}/release/hagvtool"] +
+           # All xct-* bin (but not the dSYMs and co)
+           Dir["#{prefix}/release/xct-*"] - Dir["#{prefix}/release/xct-*.*"]
+
+    bins.each do |b|
+      # Generate and install bash completion
+      output = Utils.safe_popen_read(b, "--generate-completion-script", "bash")
+      (bash_completion/File.basename(b)).write output
+      # Generate and install zsh completion
+      output = Utils.safe_popen_read(b, "--generate-completion-script", "zsh")
+      (zsh_completion/("_" + File.basename(b))).write output
+      # Generate and install fish completion
+      output = Utils.safe_popen_read(b, "--generate-completion-script", "fish")
+      (fish_completion/File.basename(b)).write output
+
+      # Install the binary after completion is generated
+      bin.install b
+    end
   end
 
   test do
