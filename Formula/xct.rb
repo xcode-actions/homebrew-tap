@@ -2,7 +2,7 @@ class Xct < Formula
   desc "Manage, build, sign and deploy your Xcode projects"
   homepage "https://xcode-actions.com"
   url "https://github.com/xcode-actions/XcodeTools.git", using: :git, tag: "0.3.5", revision: "94b8c7ee88de106625357966b151d30220e7f2fb"
-  revision 1
+  revision 2
   head "https://github.com/xcode-actions/XcodeTools.git", using: :git, branch: "develop"
 
   depends_on xcode: "12.5"
@@ -24,6 +24,10 @@ class Xct < Formula
 
     # This contains some reference to Homebrew`'s shim and must be removed
     rm "#{prefix}/release.yaml"
+
+    # This is not needed and generates an error on ARM computers when brew tries
+    # to sign the frameworks in it
+    rm_rf "#{prefix}/artifacts"
 
     bins = ["#{prefix}/release/xct"] +
            # Obsolete
