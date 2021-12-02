@@ -1,26 +1,25 @@
 class Xct < Formula
   desc "Manage, build, sign and deploy your Xcode projects"
   homepage "https://xcode-actions.com"
-  url "https://github.com/xcode-actions/XcodeTools.git", using: :git, tag: "0.3.5", revision: "94b8c7ee88de106625357966b151d30220e7f2fb"
-  revision 2
+  url "https://github.com/xcode-actions/XcodeTools.git", using: :git, tag: "0.4.0", revision: "9bb30cf6c9fdcadd2bcc7c6d849df4cfea93c9a2"
   head "https://github.com/xcode-actions/XcodeTools.git", using: :git, branch: "develop"
 
-  depends_on xcode: "12.5"
+  depends_on xcode: "13.1"
 
   def install
     compiler = if build.head?
       # When building HEAD, we have to use build-sans-sandbox because to
       # workaround the CoreData model not being understood by swift. (In
       # production tags, the CoreData model is precompiled.)
-      ["./Scripts/build-sans-sandbox.swift"]
+      "./Scripts/xcswift.swift"
     else
-      ["swift", "build"]
+      "swift"
     end
     # We compile directly in prefix because we _need_ compilation to be done
     # directly in destination directory because Swift hard-codes the bundle
     # location at compile time.
-    system(*(compiler + ["--disable-sandbox", "--force-resolved-versions",
-                         "--build-path", prefix, "--configuration", "release"]))
+    system(compiler, "build", "--disable-sandbox", "--force-resolved-versions",
+           "--build-path", prefix, "--configuration", "release")
 
     # This contains some reference to Homebrew`'s shim and must be removed
     rm "#{prefix}/release.yaml"
