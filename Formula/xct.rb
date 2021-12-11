@@ -1,7 +1,7 @@
 class Xct < Formula
   desc "Manage, build, sign and deploy your Xcode projects"
   homepage "https://xcode-actions.com"
-  url "https://github.com/xcode-actions/XcodeTools.git", using: :git, tag: "0.4.1", revision: "7cea53d2a4cd2a53280aaa9fcf36063f55f4b089"
+  url "https://github.com/xcode-actions/XcodeTools.git", using: :git, tag: "0.4.2", revision: "aa3dea3fc51175c955d29503b6e30bdf050ae0aa"
   head "https://github.com/xcode-actions/XcodeTools.git", using: :git, branch: "develop"
 
   depends_on xcode: "13.1"
