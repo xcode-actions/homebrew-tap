@@ -2,6 +2,7 @@ class Xct < Formula
   desc "Manage, build, sign and deploy your Xcode projects"
   homepage "https://xcode-actions.com"
   url "https://github.com/xcode-actions/XcodeTools.git", using: :git, tag: "0.5.1", revision: "30c62125d1a1c6ecd74b15249133b4e295f54fb1"
+  revision 2
   head "https://github.com/xcode-actions/XcodeTools.git", using: :git, branch: "develop"
 
   depends_on xcode: "13.1"
@@ -27,6 +28,9 @@ class Xct < Formula
     # This is not needed and generates an error on ARM computers when brew tries
     # to sign the frameworks in it
     rm_rf "#{prefix}/artifacts"
+
+    # We use libSPM which is not static
+    bin.install Dir["#{prefix}/release/*.dylib"]
 
     bins = ["#{prefix}/release/xct"] +
            # Obsolete
