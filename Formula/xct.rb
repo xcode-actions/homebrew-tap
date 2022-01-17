@@ -29,9 +29,6 @@ class Xct < Formula
     # to sign the frameworks in it
     rm_rf "#{prefix}/artifacts"
 
-    # We use libSPM which is not static
-    bin.install Dir["#{prefix}/release/*.dylib"]
-
     bins = ["#{prefix}/release/xct"] +
            # Obsolete
            ["#{prefix}/release/hagvtool"] +
@@ -52,6 +49,9 @@ class Xct < Formula
       # Install the binary after completion is generated
       bin.install b
     end
+
+    # We use libSPM which is not static (but must install it _after_ we have generated the completion scripts)
+    bin.install Dir["#{prefix}/release/*.dylib"]
   end
 
   test do
