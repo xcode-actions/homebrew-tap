@@ -1,7 +1,7 @@
 class Xct < Formula
   desc "Manage, build, sign and deploy your Xcode projects"
   homepage "https://xcode-actions.com"
-  url "https://github.com/xcode-actions/XcodeTools.git", using: :git, tag: "0.7.0", revision: "8d9a0bf82ca3df1657f2520c526bca539b0933bb"
+  url "https://github.com/xcode-actions/XcodeTools.git", using: :git, tag: "0.7.2", revision: "13494449d338d40c30047f13a141fa619a75f9e1"
   head "https://github.com/xcode-actions/XcodeTools.git", using: :git, branch: "develop"
 
   depends_on xcode: "13.1"
@@ -21,35 +21,51 @@ class Xct < Formula
     system(compiler, "build", "--disable-sandbox", "--force-resolved-versions",
            "--build-path", prefix, "--configuration", "release")
 
-    # This contains some reference to Homebrew`'s shim and must be removed
+    # This contains some reference to Homebrew`'s shim and must be removed.
     rm "#{prefix}/release.yaml"
 
     # This is not needed and generates an error on ARM computers when brew tries
-    # to sign the frameworks in it
+    # to sign the frameworks in it.
     rm_rf "#{prefix}/artifacts"
 
-    bins = ["#{prefix}/release/xct"] +
-           # Obsolete
-           ["#{prefix}/release/hagvtool"] +
-           # All xct-* bin (but not the dSYMs and co)
-           Dir["#{prefix}/release/xct-*"] - Dir["#{prefix}/release/xct-*.*"]
+    bins_meta_completion = ["#{prefix}/release/xct"]
+    # All xct-* bin (but not the dSYMs and co)
+    bins_normal_completion = Dir["#{prefix}/release/xct-*"] - Dir["#{prefix}/release/xct-*.*"] +
+                             # Obsolete
+                             ["#{prefix}/release/hagvtool"]
 
-    bins.each do |b|
-      # Generate and install bash completion
-      output = Utils.safe_popen_read(b, "--generate-completion-script", "bash")
+    bins_meta_completion.each do |b|
+      # Generate and install bash completion.
+      output = Utils.safe_popen_read(b, "generate-meta-completion-script", "bash")
       (bash_completion/File.basename(b)).write output
-      # Generate and install zsh completion
-      output = Utils.safe_popen_read(b, "--generate-completion-script", "zsh")
+      # Generate and install zsh completion.
+      output = Utils.safe_popen_read(b, "generate-meta-completion-script", "zsh")
       (zsh_completion/("_" + File.basename(b))).write output
-      # Generate and install fish completion
+      # Generate and install fish completion.
+      # For now meta completion is not supported for fish, so we use normal one.
       output = Utils.safe_popen_read(b, "--generate-completion-script", "fish")
       (fish_completion/File.basename(b)).write output
 
-      # Install the binary after completion is generated
+      # Install the binary after completion is generated.
       bin.install b
     end
 
-    # We use libSPM which is not static (but must install it _after_ we have generated the completion scripts)
+    bins_normal_completion.each do |b|
+      # Generate and install bash completion.
+      output = Utils.safe_popen_read(b, "--generate-completion-script", "bash")
+      (bash_completion/File.basename(b)).write output
+      # Generate and install zsh completion.
+      output = Utils.safe_popen_read(b, "--generate-completion-script", "zsh")
+      (zsh_completion/("_" + File.basename(b))).write output
+      # Generate and install fish completion.
+      output = Utils.safe_popen_read(b, "--generate-completion-script", "fish")
+      (fish_completion/File.basename(b)).write output
+
+      # Install the binary after completion is generated.
+      bin.install b
+    end
+
+    # We use libSPM which is not static (but must install it _after_ we have generated the completion scripts).
     bin.install Dir["#{prefix}/release/*.dylib"]
   end
 
