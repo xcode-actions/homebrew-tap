@@ -11,6 +11,21 @@ class Xct < Formula
       # When building HEAD, we have to use build-sans-sandbox because to
       # workaround the CoreData model not being understood by swift. (In
       # production tags, the CoreData model is precompiled.)
+      # Note: With Xcode 14 (and maybe before, idk), we can finally tell Xcode
+      # not to use the sandbox! So we could use xcodebuild to build xct now.
+      # Example of working invocation:
+      # system(
+      #   "xcodebuild",
+      #   "-IDEPackageSupportDisableManifestSandbox=1",
+      #   "-workspace", "XcodeTools.xcworkspace",
+      #   "-scheme", "xct",
+      #   "-disableAutomaticPackageResolution",
+      #   "-showBuildTimingSummary",
+      #   "-derivedDataPath", "#{prefix}/build",
+      #   "-archivePath", "#{prefix}/archive",
+      #   "archive"
+      # )
+      # On its own the invocation is not enough, but it`'s a good start.
       "./Scripts/xcswift.swift"
     else
       "swift"
