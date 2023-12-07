@@ -4,7 +4,7 @@ class Xct < Formula
   url "https://github.com/xcode-actions/XcodeTools.git", using: :git, tag: "0.9.1", revision: "2ad631ab97d3df8169ac233aef6a1f467be3782d"
   head "https://github.com/xcode-actions/XcodeTools.git", using: :git, branch: "develop"
 
-  depends_on xcode: "13.1"
+  depends_on xcode: "15.0"
 
   def install
     compiler = if build.head?
