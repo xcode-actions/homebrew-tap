@@ -61,7 +61,9 @@ class Xct < Formula
       output = Utils.safe_popen_read(b, "--generate-completion-script", "fish")
       (fish_completion/File.basename(b)).write output
 
-      # Install the binary after completion is generated.
+      # Install the binary after completion is generated and change its rpath.
+      # TODO: Formula/r/rustfmt.rb:41 for a better way of doing this.
+		system("install_name_tool", "-add_rpath", File.dirname(b), b)
       bin.install b
     end
 
@@ -76,12 +78,11 @@ class Xct < Formula
       output = Utils.safe_popen_read(b, "--generate-completion-script", "fish")
       (fish_completion/File.basename(b)).write output
 
-      # Install the binary after completion is generated.
+      # Install the binary after completion is generated and change its rpath.
+      # TODO: Formula/r/rustfmt.rb:41 for a better way of doing this.
+		system("install_name_tool", "-add_rpath", File.dirname(b), b)
       bin.install b
     end
-
-    # We use libSPM which is not static (but must install it _after_ we have generated the completion scripts).
-    bin.install Dir["#{prefix}/release/*.dylib"]
   end
 
   test do
