@@ -1,7 +1,7 @@
 class SwiftSh < Formula
   desc "Run Swift script with SPM dependencies directly"
   homepage "https://xcode-actions.com/tools/swift-sh"
-  url "https://github.com/xcode-actions/swift-sh.git", using: :git, tag: "3.0.0-beta.1", revision: "687587b06050d3df934f60dd9a51b6c40f6cd43d"
+  url "https://github.com/xcode-actions/swift-sh.git", using: :git, tag: "3.0.0-beta.1.0.1", revision: "34dd7fd4f0ed6edf364e7e0fcb82ff31de70ded3"
   head "https://github.com/xcode-actions/swift-sh.git", using: :git, branch: "develop"
 
   depends_on xcode: "15.0"
