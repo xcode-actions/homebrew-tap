@@ -1,7 +1,7 @@
 class SwiftProcessInvocationBridge < Formula
   desc "Helper tool used by swift-process-invocation when it is asked to send file descriptors to the child process"
   homepage "https://xcode-actions.com/tools/swift-process-invocation"
-  url "https://github.com/xcode-actions/swift-process-invocation.git", using: :git, tag: "1.0.0", revision: "5b74d422f99ad2bc6a16e075d1653712a59dfd6e"
+  url "https://github.com/xcode-actions/swift-process-invocation.git", using: :git, tag: "1.1.0-beta.2", revision: "995fc747c53e4dfaa7335a47511897c810ef2a01"
   head "https://github.com/xcode-actions/swift-process-invocation.git", using: :git, branch: "develop"
 
   depends_on xcode: "15.0"
