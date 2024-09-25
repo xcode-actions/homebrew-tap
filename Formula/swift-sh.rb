@@ -1,10 +1,10 @@
 class SwiftSh < Formula
   desc "Run Swift script with SPM dependencies directly"
   homepage "https://xcode-actions.com/tools/swift-sh"
-  url "https://github.com/xcode-actions/swift-sh.git", using: :git, tag: "3.1.0-beta.4", revision: "3917784be29684095fd57c315fc8b2709c2b2269"
+  url "https://github.com/xcode-actions/swift-sh.git", using: :git, tag: "3.2.0", revision: "d336059516c70a0d1cc937e7f0a4d2d861aebe15"
   head "https://github.com/xcode-actions/swift-sh.git", using: :git, branch: "develop"
 
-  depends_on xcode: "15.0"
+  depends_on xcode: "16.0"
 
   def install
     # We compile directly in prefix because we _need_ compilation to be done
