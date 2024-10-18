@@ -4,7 +4,7 @@ class SwiftShAT31 < Formula
   url "https://github.com/xcode-actions/swift-sh.git", using: :git, tag: "3.1.0", revision: "3917784be29684095fd57c315fc8b2709c2b2269"
   head "https://github.com/xcode-actions/swift-sh.git", using: :git, branch: "develop"
 
-  depends_on xcode: "16.0"
+  depends_on xcode: "15.0"
 
   def install
     # We compile directly in prefix because we _need_ compilation to be done
