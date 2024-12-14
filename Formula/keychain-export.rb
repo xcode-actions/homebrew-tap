@@ -1,7 +1,7 @@
 class KeychainExport < Formula
   desc "Export items from your keychain that security does not know how to export"
   homepage "https://xcode-actions.com/tools/keychain-export"
-  url "https://github.com/xcode-actions/keychain-export.git", using: :git, tag: "0.2.0", revision: "ed6e3bbb00bf501582c660d059314cadb6f35e71"
+  url "https://github.com/xcode-actions/keychain-export.git", using: :git, tag: "0.2.1", revision: "d1b1644025d9d5ae0b4ef396baa12a916ea5961d"
   head "https://github.com/xcode-actions/keychain-export.git", using: :git, branch: "develop"
 
   depends_on xcode: "16.0"
