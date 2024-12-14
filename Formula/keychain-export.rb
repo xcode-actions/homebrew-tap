@@ -1,10 +1,10 @@
 class KeychainExport < Formula
   desc "Export items from your keychain that security does not know how to export"
   homepage "https://xcode-actions.com/tools/keychain-export"
-  url "https://github.com/xcode-actions/keychain-export.git", using: :git, tag: "0.1.0", revision: "0568ce1e494847897229924a3dce5021a062f2c7"
+  url "https://github.com/xcode-actions/keychain-export.git", using: :git, tag: "0.2.0", revision: "ed6e3bbb00bf501582c660d059314cadb6f35e71"
   head "https://github.com/xcode-actions/keychain-export.git", using: :git, branch: "develop"
 
-  depends_on xcode: "15.0"
+  depends_on xcode: "16.0"
 
   def install
     # We compile directly in prefix because we _need_ compilation to be done
