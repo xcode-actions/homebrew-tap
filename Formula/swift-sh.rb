@@ -1,12 +1,17 @@
 class SwiftSh < Formula
   desc "Run Swift script with SPM dependencies directly"
   homepage "https://xcode-actions.com/tools/swift-sh"
-  url "https://github.com/xcode-actions/swift-sh.git", using: :git, tag: "3.3.1", revision: "0e1a1ea2a9993c11df97e9f1383d4d7bf3b66c9b"
+  url "https://github.com/xcode-actions/swift-sh.git", using: :git, tag: "3.3.1", revision: "4b5d9b5e292b753ba01893fea5e39712300dc9ed"
   head "https://github.com/xcode-actions/swift-sh.git", using: :git, branch: "develop"
 
   depends_on xcode: "16.0"
 
   def install
+    # First set the correct version number in the code.
+    inreplace "./Sources/swift-sh/swift-sh.swift" do |s|
+      s.gsub!(/.*VERSION_PLACEHOLDER.*/, "version: \"#{version}\",")
+    end
+
     # We compile directly in prefix because we _need_ compilation to be done
     # directly in destination directory because Swift hard-codes the bundle
     # location at compile time.
@@ -37,7 +42,7 @@ class SwiftSh < Formula
 
       # Install the binary after completion is generated and change its rpath.
       # TODO: Formula/r/rustfmt.rb:41 for a better way of doing this.
-		system("install_name_tool", "-add_rpath", File.dirname(b), b)
+      system("install_name_tool", "-add_rpath", File.dirname(b), b)
       bin.install b
     end
 
@@ -53,7 +58,7 @@ class SwiftSh < Formula
       (fish_completion/File.basename(b)).write output
 
       # Install the binary after completion is generated.
-		system("install_name_tool", "-add_rpath", File.dirname(b), b)
+      system("install_name_tool", "-add_rpath", File.dirname(b), b)
       bin.install b
     end
   end
