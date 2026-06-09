@@ -19,7 +19,9 @@ class SwiftSh < Formula
            "--build-path", prefix, "--configuration", "release")
 
     # This contains some reference to Homebrew`'s shim and must be removed.
-    rm "#{prefix}/release.yaml"
+    # We rm_rf instead of just rm because the file can be missing depening on
+    #  the Swift version used for compilation .
+    rm_rf "#{prefix}/release.yaml"
 
     # This is not needed and generates an error on ARM computers when brew tries
     # to sign the frameworks in it.
