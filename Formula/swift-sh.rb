@@ -4,6 +4,9 @@ class SwiftSh < Formula
   url "https://github.com/xcode-actions/swift-sh.git", using: :git, tag: "3.4.0", revision: "d2d2ed30de40714792332825579aee953ef59168"
   head "https://github.com/xcode-actions/swift-sh.git", using: :git, branch: "develop"
 
+  deprecate! date: "2026-09-21", because: "moved to swift-things org (use swift-things/tap/swift-sh instead)"
+  disable! date: "2027-09-21", because: "moved to swift-things org (use swift-things/tap/swift-sh instead)"
+
   depends_on xcode: "16.0"
 
   def install

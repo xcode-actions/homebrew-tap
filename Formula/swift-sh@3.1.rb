@@ -4,6 +4,9 @@ class SwiftShAT31 < Formula
   url "https://github.com/xcode-actions/swift-sh.git", using: :git, tag: "3.1.0", revision: "3917784be29684095fd57c315fc8b2709c2b2269"
   head "https://github.com/xcode-actions/swift-sh.git", using: :git, branch: "develop"
 
+  deprecate! date: "2026-09-21", because: "moved to swift-things org (use swift-things/tap/swift-sh@3.1 instead)"
+  disable! date: "2027-09-21", because: "moved to swift-things org (use swift-things/tap/swift-sh@3.1 instead)"
+
   depends_on xcode: "15.0"
 
   def install
