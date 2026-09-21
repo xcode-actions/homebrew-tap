@@ -33,8 +33,10 @@ class Xct < Formula
     # We compile directly in prefix because we _need_ compilation to be done
     # directly in destination directory because Swift hard-codes the bundle
     # location at compile time.
+    # We use the native build system while this issue is not fixed:
+    #  <https://github.com/swiftlang/swift-package-manager/issues/10559>.
     system(compiler, "build", "--disable-sandbox", "--force-resolved-versions",
-           "--build-path", prefix, "--configuration", "release")
+           "--build-path", prefix, "--configuration", "release", "--build-system", "native")
 
     # This contains some reference to Homebrew`'s shim and must be removed.
     rm "#{prefix}/release.yaml"
